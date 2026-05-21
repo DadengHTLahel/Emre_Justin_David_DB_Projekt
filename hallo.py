@@ -1,15 +1,24 @@
-print("Hello, World!")
+import mysql.connector
 
-print("wwww")
+# 1. Mit dem Server verbinden (OHNE Datenbank!)
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password=""
+)
 
-print("Aimray du buzztard")
+cursor = db.cursor()
 
-print("david ist süß")
+cursor.execute("CREATE DATABASE IF NOT EXISTS Restaurant")
 
-print("justin pass auf")
+cursor.execute("USE Restaurant")
 
-print("Frau Walch mag uns so gern sie gibt uns allen 1er")
 
-print("geht das jz")
+cursor.execute("CREATE TABLE IF NOT EXISTS Gast (Gast_ID INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(50), Telefonnummer INT)")
+cursor.execute("CREATE TABLE IF NOT EXISTS Bestellung (Bestell_ID INT AUTO_INCREMENT PRIMARY KEY, Gast_ID INT, FOREIGN KEY (Gast_ID) REFERENCES Gast(Gast_ID), Datum DATE)")
+cursor.execute("CREATE TABLE IF NOT EXISTS Tisch(Tisch_ID INT AUTO_INCREMENT PRIMARY KEY, Plätze INT)")
+curs
 
-print("Zu viele koeche verderben den brei")
+
+cursor.close()
+db.close()
