@@ -1,3 +1,6 @@
+#1.Einheit hat Emre Bacak programmiert fuer 2 Stunden
+#2.Einheit hat David Deng programmiert fuer 4 Stunden
+
 import mysql.connector
 
 # 1. Mit dem Server verbinden (OHNE Datenbank!)
