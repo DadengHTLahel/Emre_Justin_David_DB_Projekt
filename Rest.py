@@ -1,6 +1,7 @@
 # Autoren: Emre, Justin, David
 # 1. Einheit: Emre Bacak (2 Stunden)
 # 2. Einheit: David Deng (4 Stunden)
+# 3. Einheit: Justin Thomaset (2 Stunden)
 
 import tkinter as tk # Importiert das Tkinter-Modul für die GUI-Erstellung
 from tkinter import ttk, messagebox # Importiert spezifische GUI-Elemente und Nachrichtenboxen
@@ -108,6 +109,9 @@ class RestaurantApp: # Definition der Hauptklasse für die Applikation
                 if not gast_id.isdigit(): # Validiert: ID muss Zahl sein
                     messagebox.showerror("Fehler", "Gast_ID muss eine Zahl sein!")
                     return
+                if cursor.execute("SELECT Gast_ID FROM Gast WHERE Gast_ID = ?", (gast_id,)).fetchone() is None: # Prüft, ob Gast_ID existiert
+                    messagebox.showerror("Fehler", "Ungültige Eingabe! Gast_ID existiert nicht!")
+                    return
                 self.cursor.execute("INSERT INTO Bestellung (Gast_ID, Datum) VALUES (?, ?)", (int(gast_id), datum))
             elif tab_title == "Gerichte": # Logik für Gericht-Eingabe
                 name = frame.entries["Name"].get() # Holt Name des Gerichts
@@ -116,6 +120,9 @@ class RestaurantApp: # Definition der Hauptklasse für die Applikation
                 # Validierung der Eingabedaten für Gerichte
                 if not name.isalpha() or not preis.replace('.', '', 1).isdigit() or not bestell_id.isdigit():
                     messagebox.showerror("Fehler", "Ungültige Eingabe! Name=Buchstaben, Preis/ID=Zahlen.")
+                    return
+                if cursor.execute("SELECT Bestell_ID FROM Bestellung WHERE Bestell_ID = ?", (bestell_id,)).fetchone() is None: # Prüft, ob Gast_ID existiert
+                    messagebox.showerror("Fehler", "Ungültige Eingabe! Bestell_ID existiert nicht!")
                     return
                 self.cursor.execute("INSERT INTO Gericht (Name, Preis, Bestell_ID) VALUES (?, ?, ?)", 
                                    (name, float(preis), int(bestell_id)))
